@@ -1,0 +1,39 @@
+.main{
+    padding: 20px;
+    /* position: relative; */
+}
+.memoList{
+    margin-bottom : 80px;
+}
+.item{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.content{
+    font-size: 14px;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 텍스트 초과시 ... 표기 */
+    white-space: nowrap; /* 텍스트 초과시에도 줄바꿈 방지*/
+    /* overflow + text-overflow + white-spcae 세트로 기억하기  */
+}
+
+.addBtn {
+    position : fixed;
+    bottom : 50px;
+    right : 70px;
+    width : 60px;
+    height: 60px;
+    border-radius : 50%;
+    background-color : #007bff;
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+}
+.addBtn:focus {
+    outline: none;
+} 
