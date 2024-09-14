@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import TextField from '@mui/material/TextField';
 
 export default function WritePage() {
     let [title, setTitle] = useState("");
@@ -24,15 +25,15 @@ export default function WritePage() {
     return(
         <>
             <div className="body">
-                <div className="title">
-                    <input type="text" style={{width:"90%"}} value={title} 
-                        onChange = {(e)=> setTitle(e.target.value)}
-                    ></input>
+                <div>
+                    <TextField type="text" id="filled-basic" label="제목을 입력해주세요" variant="filled" fullWidth
+                     value={title} onChange = {(e)=> setTitle(e.target.value)}
+                    />
                 </div>
                 <div className="content" value={content}>
-                    <textarea cols="200" rows="30"
+                    <TextField id="filled-basic" label="내용을 입력해주세요" variant="filled" fullWidth
                         onChange = {(e) => setContent(e.target.value)}
-                    ></textarea>
+                    ></TextField>
                 </div>
             </div>
             <button onClick={save}>저장</button>

@@ -1,5 +1,5 @@
 
-export default function EditHead({onBack, save, isEditing}) {
+export default function EditHead({onBack,onEdit, isEditing}) {
     return(
         <>
             <header>
@@ -11,8 +11,10 @@ export default function EditHead({onBack, save, isEditing}) {
                     <h1>Todo List</h1>
                 </div>
 
-                <div className="header-section">
-                    <button>저장</button>
+                <div className="header-section" onClick={onEdit}>
+                    <button>
+                        {isEditing? '저장':'편집' }
+                    </button>
                 </div>
             </header>
         </>

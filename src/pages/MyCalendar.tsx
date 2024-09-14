@@ -1,34 +1,42 @@
 import 'react-calendar/dist/Calendar.css';
-import React, {useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
+import {CalendarContext} from '../components/CalendarContext.tsx';
+import {useNavigate} from 'react-router-dom';
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+// type ValuePiece = Date | null;
+// type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function MyCalendar(){
-    const [calendarValue, setCalendarValue] = useState<Value>(new Date());
+    //ContextAPI 사용을 위한 useContext
+    const {calendarValue, setCalendarValue} = useContext(CalendarContext);
 
-    useEffect(() => {
-        const keys = Object.keys(localStorage);
-        console.log(keys);
-    }, []);
-        
-    
+    const navigate = useNavigate();
 
-    // value 에 이벤트를 발생시킴
+    const handleDateChange = (date) =>{
+        setCalendarValue(date); //클릭한 날짜로 업데이트되어 해당 상태를 사용하는 컴포넌트를 리렌더링
+        console.log(`지정변수 : ${date}`);
+        navigate("/"); //Main을 호출하면서 해당 이벤트가 
+    }
 
-        // console.log(moment().format('YYYY.MM.DD'));
-        // formatLongDate={(locale, date) => moment(date).format("YYYY-MM-DD")} //Calendar 속성. 해당 포멧으로 반환함
+    // useEffect(() => {
+    //     const keys = Object.keys(localStorage);
+    // }, []);
+
     return(
         <div>
-            <Calendar onChange={(setCalendarValue, event) =>{alert(setCalendarValue)}} value={calendarValue} formatDay={(locale, date) => moment(date).format("D")}
-            calendarType='gregory' maxDate={new Date()}
-            tileContent = {({date, view}) => 
-                {
+            <Calendar onChange={ handleDateChange}
+                //클릭시 해당 날짜 리스트만 출력
+                value={calendarValue} 
+                formatDay={(locale, date) => moment(date).format("D")}
+                calendarType='gregory' 
+                maxDate={new Date()} 
+                tileContent = {({date, view}) => {
                     if(view === 'month') {
-                        const dateKey = date.toLocaleDateString('sv-SE');
-                        const entries = Object.entries(localStorage);
+                        const dateKey = date.toLocaleDateString('sv-SE'); //date에 저장된 날짜를 스웨덴 포맷으로 출력. ex) 2024-09-10 07:42:27
+                        // console.log(`날짜 ${dateKey}`); //칼렌더에 표시되는 모든 날짜
+                        const entries = Object.entries(localStorage); 
                         const matchingMemos = entries
                         .filter(([key, value]) => key.startsWith(dateKey)) //dateKey가 포함되어있을 경우 true
                         .map(([key, value]) => JSON.parse(value)); // true에 해당하는 것들만 map에 담음
@@ -36,17 +44,10 @@ function MyCalendar(){
                     }
                     return null;
                 }
-            } 
-            // view === 'month' && date.getDay() === 0 ? <p>{`${date.toISOString().slice(0,10)}`}</p> : null
-
-            // localStorage의 key에 date의 utf가 포함되어있으면?
-            />
-            {/* 이전 이후, 전/후년도의 데이터 받기 */}
-            {/* onChange 이벤트에서 localStorage 내역을 item.get()하기 */}
+            }/>
+            
         </div>
-        //메모 데이터를 저장할 때의 날짜 == setCalendarValue가 일치해야함. moment로 가공
-        //tile에 기록해놓은 내용이 표시되어야함.
     );
-};
+}
 
 export default MyCalendar;

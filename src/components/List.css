@@ -37,3 +37,6 @@
 .addBtn:focus {
     outline: none;
 } 
+#markDiv {
+    visibility: visible;
+}

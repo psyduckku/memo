@@ -13,7 +13,7 @@ export default function Header({onBack, onEdit, isEditing, cal}){
 
             <div className="header-section" onClick={onEdit}>
                 <button className="header-section">
-                    {isEditing? 'Finish' : 'Edit'}
+                    {isEditing? 'Delete' : 'Edit'}
                 </button>
             </div>
             <div className="header-section" onClick={cal}>
